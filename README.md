@@ -5,7 +5,7 @@
 20180353 박성배
 20180203 배재영
 
-Calculator Program
+Calculator Program\
 -Can type multiple operater expressions. 
  ex) 1+2+3
      1+2/3    <-this wil be calculated using the Arithmetic operation precedence
