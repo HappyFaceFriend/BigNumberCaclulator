@@ -18,6 +18,7 @@ Calculator Program
  
 -If results are not integer, it will print a float type answer.
 
- ex) 5/2 = 2.5
+ ex)5/2*2 = 5
+     
+     5/2 = 2.5
  
-     5/2\*2 = 5
