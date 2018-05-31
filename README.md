@@ -8,10 +8,16 @@
 Calculator Program
 
 -Can type multiple operater expressions. 
+
  ex) 1+2+3
      1+2/3    <-this wil be calculated using the Arithmetic operation precedence
+     
 -Can use negative integer
+
  ex) 4*-3
+ 
 -If results are not integer, it will print a float type answer.
+
  ex) 5/2 = 2.5
+ 
      5/2*2 = 5
