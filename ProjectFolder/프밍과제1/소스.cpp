@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 int isNum(char c);
 int isOp(char c);
 
@@ -15,11 +16,13 @@ int main()
 	printf("[Calculator Program]\ntype stop to quit\n\n");
 	while (1)
 	{
-		LoopStart:
+	LoopStart:
 		index = 0;
 		opIdx = 0;
 		numIdx = 0;
-		printf("Input>>");
+		for (i = 0; i < 100; i++)
+			num[i] = 0;
+		printf("\nInput>>");
 		scanf("%s", exp);
 		if (strcmp(exp, "stop") == 0)
 			break;
@@ -42,17 +45,16 @@ int main()
 			}
 			else if (isOp(exp[index]))
 			{
-				if (exp[index] != '-' && !isNum(exp[index - 1]))
+				if (exp[index] != '-' && (index == 0 || isOp(exp[index - 1])))
 				{
 					printf("Error : Typed operator wrongly\n");
 					goto LoopStart;
 				}
-				if (index == 0 || (exp[index] == '-' && !isNum(exp[index - 1])))
+				if (minusFlag == 0 && exp[index] == '-' && (index == 0 || isOp(exp[index - 1])))
 					minusFlag = 1;
 				else
 					op[opIdx++] = exp[index];
 				index++;
-
 			}
 			else
 			{
@@ -104,9 +106,9 @@ int main()
 				result -= num[i + 1];
 		}
 		if ((int)result != result)
-			printf("%s = %f\n\n",exp, result);
+			printf("%s = %f\n", exp, result);
 		else
-			printf("%s = %d\n\n",exp, (int)result);
+			printf("%s = %d\n", exp, (int)result);
 	}
 	printf("End Program.");
 	return 0;
