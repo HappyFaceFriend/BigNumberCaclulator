@@ -16,9 +16,9 @@ Calculator Program
 
  ex) 4*-3
  
--If results are not integer, it will print a float type answer.
+-Calculation is based on integer calculation.
 
- ex) 5/2*2 = 5
+ ex) 5/2*2 = 4
      
- ex) 5/2 = 2.5
+ ex) 5/2 = 2
  
