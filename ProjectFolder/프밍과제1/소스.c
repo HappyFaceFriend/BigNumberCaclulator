@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define STRMAX 100
+#define STRMAX 200
 
 struct BigNum {
 	char str[STRMAX];
@@ -30,12 +30,9 @@ void Divide(struct BigNum a, struct BigNum b, struct BigNum *result);
 
 int main()
 {
-	int index = 0, opIdx = 0, numIdx = 0;
-	char op[50];
-	BigNum num[100],tempResult,result;
-	char exp[150] = "";
-	int i, j,k, minusFlag = 0;
-	char numStr[STRMAX] = "";
+	int index, opIdx, numIdx, i, j, k, minusFlag = 0;
+	struct BigNum num[100],tempResult,result;
+	char exp[150] = "", numStr[STRMAX] = "", op[50]="";
 
 	printf("[Calculator Program]\ntype stop to quit\n\n");
 	while (1)
@@ -44,8 +41,6 @@ int main()
 		index = 0;
 		opIdx = 0;
 		numIdx = 0;
-		for (i = 0; i < 100; i++)
-			num[i] = Zero();
 		printf("\nInput>>");
 		scanf("%s", exp);
 		if (strcmp(exp, "stop") == 0)
@@ -56,10 +51,7 @@ int main()
 			{
 				k = 0;
 				while (isNum(exp[index]))
-				{
-					numStr[k++] = exp[index];
-					index += 1;
-				}
+					numStr[k++] = exp[index++];
 				numStr[k] = '\0';
 				SetNum(numStr, &num[numIdx]);
 				if (minusFlag == 1)
@@ -175,7 +167,7 @@ void cutStr(char *dest, char *src, int count)
 	int i;
 	for (i = 0; i < count; i++)
 		dest[i] = src[i];
-	dest[i] = 0;
+	dest[i] = '\0';
 }
 //문자열 b를 a에 뒤집어서 복사
 void strcpyBack(char *a, char *b)
@@ -186,6 +178,7 @@ void strcpyBack(char *a, char *b)
 	int i;
 	for (i = 0; i < len; i++)
 		a[i] = t[len - i - 1];
+	a[i] = '\0';
 }
 
 
@@ -353,7 +346,6 @@ void Add(struct BigNum a, struct BigNum b, struct BigNum *result)
 		}
 	}
 	strcpyBack(result->str, nR);
-	result->str[i] = '\0';
 	trimZero(result);
 
 }
@@ -388,6 +380,8 @@ void Multiply(struct BigNum a, struct BigNum b, struct BigNum *result)
 	for (i = 0; i < lenB; i++)
 	{
 		carry = 0;
+		for (j = 0; j < STRMAX; j++)
+			nT[j] = 0;
 		for (j = 0; j < lenA; j++)
 		{
 			t = Num(nA[j]) * Num(nB[i]) + carry;
@@ -395,20 +389,14 @@ void Multiply(struct BigNum a, struct BigNum b, struct BigNum *result)
 			nT[j] = Char(t % 10);
 		}
 		if (carry > 0)
-		{
 			nT[j] = Char(carry);
-			j++;
-		}
 		strcpyBack(temp.str, nT);
-		temp.str[j] = '\0';
 		for (t = 0; t < i; t++)
 			strcat(temp.str, "0");
 		Add(Plus(temp), *result, result);
 	}
 	if (a.sign == b.sign)
 		result->sign = 1;
-	else if (a.sign == 0 || b.sign == 0)
-		result->sign = 0;
 	else
 		result->sign = -1;
 
@@ -431,8 +419,6 @@ void Divide(struct BigNum a, struct BigNum b, struct BigNum *result)
 	if (a.sign == 0)
 		return;
 	CopyNum(&cloneA, Plus(a));
-	strcpy(cloneB.str, b.str);
-
 	while (shift + lenB <= lenA)
 	{
 		CopyNum(&cloneB, Minus(b));
@@ -455,6 +441,5 @@ void Divide(struct BigNum a, struct BigNum b, struct BigNum *result)
 		Add(*result, temp, result);
 		shift++;
 	}
-
 	trimZero(result);
 }
