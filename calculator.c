@@ -134,7 +134,7 @@ int main()
 	return 0;
 }
 
-//c가 숫자를 나타내면 1, 아니면 0
+//return 1 if c is number, 0 otherwise
 int isNum(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -142,7 +142,7 @@ int isNum(char c)
 	else
 		return 0;
 }
-//c가 연산자면 1, 아니면 0
+//return 1 if c is operator, 0 otherwise
 int isOp(char c)
 {
 	if (c == '+' || c == '-' || c == '/' || c == '*')
@@ -150,18 +150,18 @@ int isOp(char c)
 	else
 		return 0;
 }
-//문자를 숫자로
+//char to int
 int Num(char c)
 {
 	return c - '0';
 }
-//숫자를 문자로
+//int to char
 char Char(int i)
 {
 	return i + '0';
 }
 
-//문자열을 count만큼만 자름
+//copy a slice of src to dest
 void cutStr(char *dest, char *src, int count)
 {
 	int i;
@@ -169,7 +169,7 @@ void cutStr(char *dest, char *src, int count)
 		dest[i] = src[i];
 	dest[i] = '\0';
 }
-//문자열 b를 a에 뒤집어서 복사
+//copy b to a, reversed
 void strcpyBack(char *a, char *b)
 {
 	int len = strlen(b);
@@ -182,7 +182,7 @@ void strcpyBack(char *a, char *b)
 }
 
 
-//BigNum의 str을 부호붙여 출력
+//print BigNum
 void Print(struct BigNum a)
 {
 	if (a.sign > 0)
@@ -192,7 +192,7 @@ void Print(struct BigNum a)
 	else
 		printf("0");
 }
-//문자열을 BigNum으로 바꿈 (부호 뗌)
+//change str to BigNum
 void SetNum(char *str, struct BigNum *b)
 {
 	int i;
@@ -213,13 +213,13 @@ void SetNum(char *str, struct BigNum *b)
 		strcpy(b->str, str);
 	}
 }
-//BigNum 복사
+//copy BigNum
 void CopyNum(struct BigNum *dest, struct BigNum src)
 {
 	strcpy(dest->str, src.str);
 	dest->sign = src.sign;
 }
-//BigNum의 절댓값 비교
+//compare two BigNums by absolute value
 int NumComp(struct BigNum a, struct BigNum b)
 {
 	int i;
@@ -239,7 +239,7 @@ int NumComp(struct BigNum a, struct BigNum b)
 	else
 		return -1;
 }
-//양수로 바꿔 반환
+//return a positive version of a BigNum
 struct BigNum Plus(struct BigNum a)
 {
 	struct BigNum r;
@@ -247,7 +247,7 @@ struct BigNum Plus(struct BigNum a)
 	r.sign = 1;
 	return r;
 }
-//음수로 바꿔 변환
+//return a negative version of a BigNum
 struct BigNum Minus(struct BigNum a)
 {
 	struct BigNum r;
@@ -255,14 +255,14 @@ struct BigNum Minus(struct BigNum a)
 	r.sign = -1;
 	return r;
 }
-//0 반환
+//return zero
 struct BigNum Zero()
 {
 	struct BigNum r;
 	SetNum("0", &r);
 	return r;
 }
-//숫자 앞의 0 제거
+//trim zeros infront of the BigNum
 void trimZero(struct BigNum *a)
 {
 	int i, len = strlen(a->str);
