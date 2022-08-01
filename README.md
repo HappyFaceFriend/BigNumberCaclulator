@@ -1,5 +1,5 @@
 # Big Number Calculator
-Simple calculator program that can handle big numbers, using C. (Programming class assignment)
+Simple calculator program that can handle big numbers, using C. (Programming class assignment, June 2018)
 
 ## How to run
 1. Compile calculator.c
